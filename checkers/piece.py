@@ -2,7 +2,7 @@ from .constants import RED, GREY, SQUARE_SIZE
 import pygame
 
 class Piece:
-    PADDING = 10
+    PADDING = 15
     OUTLINE = 2
 
     def __init__(self, row, col, color):
@@ -30,7 +30,7 @@ class Piece:
 
     def draw(self, window):
         radius = SQUARE_SIZE//2 - self.PADDING
-        pygame.draw.cirlce(window, GREY, (self.x, self.y), radius + self.OUTLINE)
+        pygame.draw.circle(window, GREY, (self.x, self.y), radius + self.OUTLINE)
         pygame.draw.circle(window, self.color, (self.x, self.y), radius)
 
     def __repr__(self):
