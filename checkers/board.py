@@ -3,6 +3,7 @@ from .constants import BLACK, ROWS, RED, SQUARE_SIZE, COLS, WHITE
 from .piece import Piece
 
 
+# noinspection PyTypeChecker
 class Board:
     def __init__(self):
         self.board = []
@@ -35,7 +36,7 @@ class Board:
         for row in range(ROWS):
             self.board.append([])
             for col in range(COLS):
-                if col%2 == ((row+1) % 2):
+                if col % 2 == ((row + 1) % 2):
                     if row < 3:
                         self.board[row].append(Piece(row, col, WHITE))
                     elif row > 4:
@@ -60,15 +61,17 @@ class Board:
         row = piece.row
 
         if piece.color == RED or piece.king:
-            moves.update(self._traverse_left(row - 1, max(row - 3, -1), -1, piece.color, left))
-            moves.update(self._traverse_right(row - 1, max(row - 3, -1), -1, piece.color, right))
+            moves.update(self._traverse_left(row - 1, max(row - 3, -1), -1, piece.color, left, None))
+            moves.update(self._traverse_right(row - 1, max(row - 3, -1), -1, piece.color, right, None))
         if piece.color == WHITE or piece.king:
-            moves.update(self._traverse_left(row + 1, min(row + 3, ROWS), 1, piece.color, left))
+            moves.update(self._traverse_left(row + 1, min(row + 3, ROWS), 1, piece.color, left, None))
             moves.update(self._traverse_right(row + 1, min(row + 3, ROWS), 1, piece.color, right))
 
         return moves
 
-    def _traverse_left(self, start, stop, step, color, left, skipped=[]):
+    def _traverse_left(self, start, stop, step, color, left, skipped=None):
+        if skipped is None:
+            skipped = []
         moves = {}
         last = []
         for r in range(start, stop, step):
@@ -101,7 +104,9 @@ class Board:
 
         return moves
 
-    def _traverse_right(self, start, stop, step, color, right, skipped=[]):
+    def _traverse_right(self, start, stop, step, color, right, skipped=None):
+        if skipped is None:
+            skipped = []
         moves = {}
         last = []
         for r in range(start, stop, step):
@@ -131,3 +136,4 @@ class Board:
                 last = [current]
 
             right += 1
+        return moves
