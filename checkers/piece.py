@@ -11,7 +11,7 @@ class Piece:
         self.color = color
         self.king = False
 
-        if self.col == RED:
+        if self.color == RED:
             self.direction = -1
         else:
             self.direction = 1
@@ -34,5 +34,11 @@ class Piece:
         pygame.draw.circle(window, self.color, (self.x, self.y), radius)
         if self.king:
             window.blit(CROWN, (self.x - CROWN.get_width()//2, self.y - CROWN.get_height()//2))
+
+    def move(self, row, col):
+        self.row = row
+        self.col = col
+        self.calc_pos()
+
     def __repr__(self):
         return str(self.color)
