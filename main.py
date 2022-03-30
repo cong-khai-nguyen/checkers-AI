@@ -20,12 +20,12 @@ def main():
 
     while run:
         clock.tick(FPS)
-        if game.winner() != None:
-            print(game.winner())
+
 
 
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.QUIT or game.winner() != None:
+                print(game.winner())
                 run = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
