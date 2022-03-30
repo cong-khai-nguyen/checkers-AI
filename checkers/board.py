@@ -22,7 +22,7 @@ class Board:
         self.board[piece.row][piece.col], self.board[row][col] = self.board[row][col], self.board[piece.row][piece.col]
         piece.move(row, col)
 
-        if row == ROWS or row == 0:
+        if row == ROWS-1 or row == 0:
             piece.make_king()
             if piece.color == WHITE:
                 self.white_king += 1
@@ -68,6 +68,24 @@ class Board:
             moves.update(self._traverse_right(row + 1, min(row + 3, ROWS), 1, piece.color, right))
 
         return moves
+    def remove(self, pieces):
+        for piece in pieces:
+            self.board[piece.row][piece.col] = 0
+            if piece != 0:
+                if piece.color == RED:
+                    self.red_left -= 1
+                else:
+                    self.white_left -= 1
+
+        # if self.winner() is not None:
+        #     print(self.winner())
+
+    def winner(self):
+        if self.red_left <= 0:
+            return WHITE
+        elif self.white_left <= 0:
+            return RED
+        return None
 
     def _traverse_left(self, start, stop, step, color, left, skipped=None):
         if skipped is None:

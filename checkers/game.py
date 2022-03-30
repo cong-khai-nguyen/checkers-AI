@@ -21,6 +21,9 @@ class Game:
     def reset(self):
         self._init()
 
+    def winner(self):
+        return self.board.winner()
+
     def select(self, row, col):
         if self.selected:
             result = self._move(row, col)
@@ -40,6 +43,9 @@ class Game:
         piece = self.board.get_piece(row, col)
         if self.selected and piece == 0 and (row, col) in self.valid_moves:
             self.board.move(self.selected, row, col)
+            skipped = self.valid_moves[(row, col)]
+            if skipped:
+                self.board.remove(skipped)
             self.change_turn()
         else:
             return False
@@ -47,6 +53,8 @@ class Game:
         return True
 
     def change_turn(self):
+        self.valid_moves = {}
+        self.valid_moves = {}
         if self.turn == RED:
             self.turn = WHITE
         else:
