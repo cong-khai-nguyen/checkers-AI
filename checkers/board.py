@@ -21,13 +21,14 @@ class Board:
     def move(self, piece, row, col):
         self.board[piece.row][piece.col], self.board[row][col] = self.board[row][col], self.board[piece.row][piece.col]
         piece.move(row, col)
-
+        # print(self.red_king)
         if row == ROWS-1 or row == 0:
-            piece.make_king()
-            if piece.color == WHITE:
-                self.white_king += 1
-            else:
-                self.red_king += 1
+            if piece.king is not True:
+                piece.make_king()
+                if piece.color == WHITE:
+                    self.white_king += 1
+                else:
+                    self.red_king += 1
 
     def get_piece(self, row, col):
         return self.board[row][col]
