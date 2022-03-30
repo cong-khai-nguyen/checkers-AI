@@ -36,7 +36,6 @@ class Game:
             self.selected = piece
             self.valid_moves = self.board.get_valid_moves(piece)
             return True
-
         return False
 
     def _move(self, row, col):
@@ -53,7 +52,6 @@ class Game:
         return True
 
     def change_turn(self):
-        self.valid_moves = {}
         self.valid_moves = {}
         if self.turn == RED:
             self.turn = WHITE
