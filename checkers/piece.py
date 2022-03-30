@@ -11,6 +11,8 @@ class Piece:
         self.color = color
         self.king = False
 
+
+
         self.x = 0
         self.y = 0
 
